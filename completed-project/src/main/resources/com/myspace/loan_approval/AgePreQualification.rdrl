@@ -1,0 +1,13 @@
+package com.myspace.loan_approval;
+
+import java.lang.Number;
+
+rule "AgePreQualification"
+	dialect "mvel"
+	ruleflow-group "age_qualification"
+	when
+		Applicant( age > 18 && age < 70 )
+		loan : Loan( eval( ((loan.agePreQual=false) ==false) ))
+	then
+		loan.setAgePreQual( true );
+end
